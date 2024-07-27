@@ -262,6 +262,9 @@ class MainIsland extends React.Component {
     dirLight.shadow.camera.far = 1000;
     dirLight.quaternion.copy(camera.quaternion);
 
+    scene.add(dirLight);
+    scene.add( light );
+
     grouped = new THREE.Group();
 
     let stad1Pos = {x:-4.2, y:0.9, z: -0.9};
@@ -323,9 +326,6 @@ class MainIsland extends React.Component {
     let plaquePos = {x:0, y:0.6, z:8.7};
     plaque.scale.set(0.5,0.5,0.5);
     plaque.position.set(plaquePos.x,plaquePos.y,plaquePos.z);
-
-    scene.add(dirLight);
-    scene.add( light );
 
     island.scale.set(0.7,0.7,0.7); 
     stad1.scale.set(0.25,0.25,0.25);
