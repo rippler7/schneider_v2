@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import eventBus from '../../eventBus';
-const TWEEN = require('@tweenjs/tween.js');
+import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
+// const TWEEN = require('@tweenjs/tween.js');
 
 var mouse, raycaster, camera, scene, renderer, controls;
 var stad1,stad2,stad3,stad4,office,academy,podium,house,grouped,island;
@@ -42,7 +43,7 @@ class MainIsland extends React.Component {
     eventBus.remove("clickedObj");
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 10000);
-    renderer = new THREE.WebGLRenderer({antialia:true,alpha:true});
+    renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
     renderer.setSize( window.innerWidth, window.innerHeight );
     this.mount.appendChild( renderer.domElement );
     raycaster = new THREE.Raycaster();
@@ -249,7 +250,8 @@ class MainIsland extends React.Component {
   
     var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 0.8 );
     var dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
-    dirLight.position.set(2, 70, 100);
+    dirLight.position.set(1, 70, 100);
+    light.position.set(1, 1, 0);
     let d = 1000;
     let r = 2;
     let mapSize = 512;
@@ -261,6 +263,7 @@ class MainIsland extends React.Component {
     // dirLight.shadow.camera.bottom = dirLight.shadow.camera.left = -d;
     dirLight.shadow.camera.near = 1;
     dirLight.shadow.camera.far = 1000;
+   dirLight.quaternion.copy(camera.quaternion);
 
     grouped = new THREE.Group();
 
@@ -324,6 +327,9 @@ class MainIsland extends React.Component {
     plaque.scale.set(0.5,0.5,0.5);
     plaque.position.set(plaquePos.x,plaquePos.y,plaquePos.z);
 
+    scene.add(dirLight);
+    scene.add( light );
+
     island.scale.set(0.7,0.7,0.7); 
     stad1.scale.set(0.25,0.25,0.25);
     stad1.rotation.y = -1.56;
@@ -376,8 +382,7 @@ class MainIsland extends React.Component {
     grouped.add(signReport);
     grouped.add(plaque);
     scene.add(grouped);    
-    scene.add(dirLight);
-    scene.add( light );
+
 
     camInit = { x:0, y:15, z:15 };
     camera.position.set(camInit.x,camInit.y,camInit.z);
@@ -409,22 +414,6 @@ class MainIsland extends React.Component {
     window.addEventListener('resize', this.onWindowResize, false);
     document.addEventListener('click', this.clickObj, false);
 
-    // dirLight.position.set(
-    //   camera.position.x+10,
-    //   camera.position.y+10,
-    //   camera.position.z+10
-    // );
-
-// var animate = function () {
-//   try {
-//     TWEEN.update();
-//   } catch (error) {
-//     renderer.setAnimationLoop(null);
-//   }
-  
-//   renderer.render( scene, camera );
-//   requestAnimationFrame( animate );
-//   };
 
   var animate = function() {
     requestAnimationFrame(animate);
