@@ -1,0 +1,35 @@
+div.footer{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:120px;
+    position:absolute;
+    bottom:10px !important;
+    z-index: 10;
+  }
+
+  button.btn {
+    background:transparent;
+    border: 0px solid;
+    cursor: pointer;
+    margin:0px 10px;
+    bottom:0px;
+  }
+
+  button.btn img {
+    width:80px;
+    transition: width 0.2s;
+  }
+
+  button.btn:hover img {
+    width:100px;
+  }
+
+  button.btn:hover {
+    font-weight:bold;
+    font-size:larger;
+  }
+
+  div.footer div button.btn:hover{
+    bottom:20px;
+  }
