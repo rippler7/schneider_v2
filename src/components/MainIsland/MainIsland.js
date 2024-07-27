@@ -424,13 +424,12 @@ class MainIsland extends React.Component {
   
 //   renderer.render( scene, camera );
 //   requestAnimationFrame( animate );
-//   // grouped.rotation.y += 0.00001;
 //   };
 
   var animate = function() {
     requestAnimationFrame(animate);
     delta += clock.getDelta();
-  
+    grouped.rotation.y += 0.0001;
      if (delta  > interval) {
          // The draw or time dependent code are here
          TWEEN.update();
