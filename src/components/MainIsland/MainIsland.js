@@ -7,20 +7,20 @@ import eventBus from '../../eventBus';
 import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
 // const TWEEN = require('@tweenjs/tween.js');
 
-var mouse, raycaster, camera, scene, renderer, controls;
-var stad1,stad2,stad3,stad4,office,academy,podium,house,grouped,island;
-var signlq1, signlq2,signlq3,signlq4,signVote,signEntry,signFame,signReport,plaque;
-var modalStat = "closed";
-var camInit, tweenCam;
-var header;
-var zoom, zoomEnd, targetObj;
-var material = new THREE.MeshLambertMaterial();
-var asset3DFolder = './assets/object/';
+let mouse, raycaster, camera, scene, renderer, controls;
+let stad1,stad2,stad3,stad4,office,academy,podium,house,grouped,island;
+let signlq1, signlq2,signlq3,signlq4,signVote,signEntry,signFame,signReport,plaque;
+let modalStat = "closed";
+let camInit, tweenCam;
+let header;
+let zoom, zoomEnd, targetObj;
+let material = new THREE.MeshLambertMaterial();
+let asset3DFolder = './assets/object/';
 
-var clock = new THREE.Clock();
-var delta = 0;
+let clock = new THREE.Clock();
+let delta = 0;
   // 30 fps
-var interval = 1 / 30;
+let interval = 1 / 30;
 
 
 class MainIsland extends React.Component {
@@ -51,7 +51,7 @@ class MainIsland extends React.Component {
 
     controls = new OrbitControls(camera, renderer.domElement);
 
-    var loader = new FBXLoader();
+    let loader = new FBXLoader();
 
     island = new THREE.Object3D();
     stad1 = new THREE.Object3D();
@@ -76,8 +76,8 @@ class MainIsland extends React.Component {
     header = document.getElementById("modalHeader");
 
     eventBus.on('menuSelected',(data)=>{
-      var camFocus = data.selectedMenu;
-      var trgt;
+      let camFocus = data.selectedMenu;
+      let trgt;
       switch(camFocus){
         case 'lead':
         trgt = stad1.position;
@@ -99,8 +99,8 @@ class MainIsland extends React.Component {
           camera.position.set(camInit.x,camInit.y,camInit.z);
         break;
       }      
-      var positionToLookAt = trgt;
-      var evt = new Event('click');
+      let positionToLookAt = trgt;
+      let evt = new Event('click');
       
       document.dispatchEvent(evt);
       controls.update();
@@ -248,82 +248,79 @@ class MainIsland extends React.Component {
       }
     );
   
-    var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 0.8 );
-    var dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    let light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 0.8 );
+    let dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
     dirLight.position.set(1, 70, 100);
     light.position.set(1, 1, 0);
-    let d = 1000;
     let r = 2;
     let mapSize = 512;
     dirLight.castShadow = true;
     dirLight.shadow.radius = r;
     dirLight.shadow.mapSize.width = mapSize;
     dirLight.shadow.mapSize.height = mapSize;
-    // dirLight.shadow.camera.top = dirLight.shadow.camera.right = d;
-    // dirLight.shadow.camera.bottom = dirLight.shadow.camera.left = -d;
     dirLight.shadow.camera.near = 1;
     dirLight.shadow.camera.far = 1000;
-   dirLight.quaternion.copy(camera.quaternion);
+    dirLight.quaternion.copy(camera.quaternion);
 
     grouped = new THREE.Group();
 
-    var stad1Pos = {x:-4.2, y:0.9, z: -0.9};
+    let stad1Pos = {x:-4.2, y:0.9, z: -0.9};
     stad1.position.set(stad1Pos.x,stad1Pos.y,stad1Pos.z);
 
-    var stad2Pos = {x:-4.5, y:1, z: 4};
+    let stad2Pos = {x:-4.5, y:1, z: 4};
     stad2.position.set(stad2Pos.x,stad2Pos.y,stad2Pos.z);
 
-    var stad3Pos = {x:3, y:1, z: 1};
+    let stad3Pos = {x:3, y:1, z: 1};
     stad3.position.set(stad3Pos.x,stad3Pos.y,stad3Pos.z);
 
-    var stad4Pos = {x:3, y:1, z: 5.5};
+    let stad4Pos = {x:3, y:1, z: 5.5};
     stad4.position.set(stad4Pos.x,stad4Pos.y,stad4Pos.z);
 
-    var acadPos = {x:-4.2, y:1, z: -6};
+    let acadPos = {x:-4.2, y:1, z: -6};
     academy.position.set(acadPos.x,acadPos.y,acadPos.z);
 
-    var podPos = {x:6.3, y:1, z: -0.8};
+    let podPos = {x:6.3, y:1, z: -0.8};
     podium.position.set(podPos.x,podPos.y,podPos.z);
 
-    var officePos = {x:3.2, y:1.1, z: -5.5};
+    let officePos = {x:3.2, y:1.1, z: -5.5};
     office.position.set(officePos.x,officePos.y,officePos.z);
 
-    var housePos = {x:6.5, y:0.9, z: -5.5};
+    let housePos = {x:6.5, y:0.9, z: -5.5};
     house.position.set(housePos.x,housePos.y,housePos.z);
 
-    var signPoslq1 = {x:-3.2, y:1, z:1.3};
+    let signPoslq1 = {x:-3.2, y:1, z:1.3};
     signlq1.scale.set(0.3,0.3,0.3);
     signlq1.position.set(signPoslq1.x,signPoslq1.y,signPoslq1.z);
 
-    var signPoslq2 = {x:stad2Pos.x+2, y:stad2Pos.y, z:stad2Pos.z+3};
+    let signPoslq2 = {x:stad2Pos.x+2, y:stad2Pos.y, z:stad2Pos.z+3};
     signlq2.scale.set(0.3,0.3,0.3);
     signlq2.position.set(signPoslq2.x,signPoslq2.y,signPoslq2.z);
 
-    var signPoslq3 = {x:stad4Pos.x+2.5, y:stad4Pos.y, z:stad4Pos.z+1.7};
+    let signPoslq3 = {x:stad4Pos.x+2.5, y:stad4Pos.y, z:stad4Pos.z+1.7};
     signlq3.scale.set(0.3,0.3,0.3);
     signlq3.position.set(signPoslq3.x,signPoslq3.y,signPoslq3.z);
 
-    var signPoslq4 = {x:stad3Pos.x+2, y:stad3Pos.y, z:stad3Pos.z+2};
+    let signPoslq4 = {x:stad3Pos.x+2, y:stad3Pos.y, z:stad3Pos.z+2};
     signlq4.scale.set(0.3,0.3,0.3);
     signlq4.position.set(signPoslq4.x,signPoslq4.y,signPoslq4.z);
 
-    var signPosVote = {x:acadPos.x-2.5, y:acadPos.y, z:acadPos.z+1};
+    let signPosVote = {x:acadPos.x-2.5, y:acadPos.y, z:acadPos.z+1};
     signVote.scale.set(0.3,0.3,0.3);
     signVote.position.set(signPosVote.x,signPosVote.y,signPosVote.z);
 
-    var signPosReport = {x:housePos.x-1, y:housePos.y, z:housePos.z+1};
+    let signPosReport = {x:housePos.x-1, y:housePos.y, z:housePos.z+1};
     signReport.scale.set(0.3,0.3,0.3);
     signReport.position.set(signPosReport.x,signPosReport.y,signPosReport.z);
 
-    var signPosEntry = {x:officePos.x-1.4, y:officePos.y, z:officePos.z+1};
+    let signPosEntry = {x:officePos.x-1.4, y:officePos.y, z:officePos.z+1};
     signEntry.scale.set(0.3,0.3,0.3);
     signEntry.position.set(signPosEntry.x,signPosEntry.y,signPosEntry.z);
 
-    var signPosFame = {x:podPos.x, y:podPos.y, z:podPos.z+1.5};
+    let signPosFame = {x:podPos.x, y:podPos.y, z:podPos.z+1.5};
     signFame.scale.set(0.3,0.3,0.3);
     signFame.position.set(signPosFame.x,signPosFame.y,signPosFame.z);
 
-    var plaquePos = {x:0, y:0.6, z:8.7};
+    let plaquePos = {x:0, y:0.6, z:8.7};
     plaque.scale.set(0.5,0.5,0.5);
     plaque.position.set(plaquePos.x,plaquePos.y,plaquePos.z);
 
@@ -410,21 +407,17 @@ class MainIsland extends React.Component {
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 		renderer.toneMappingExposure = 0.5;
     console.log(scene);
-    var evt = new Event('click');
     window.addEventListener('resize', this.onWindowResize, false);
     document.addEventListener('click', this.clickObj, false);
 
 
-  var animate = function() {
+  let animate = function() {
     requestAnimationFrame(animate);
     delta += clock.getDelta();
     grouped.rotation.y += 0.0001;
      if (delta  > interval) {
-         // The draw or time dependent code are here
          TWEEN.update();
-         renderer.render( scene, camera );
-        //  render();
-  
+         renderer.render( scene, camera );  
          delta = delta % interval;
      }
   }
@@ -440,17 +433,17 @@ clickObj(event){
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects( grouped.children );
+    let intersects = raycaster.intersectObjects( grouped.children );
     if(intersects && intersects.length > 0){
       if(intersects[0].object.name){
         if(intersects[0].object.name !== 'polySurface22'){
           console.log(intersects[0].object.name);
           console.log(this);
-          var tId;
-          var headerTitle ='';
-          var currTarget;
-          var year, quarter;   
-          var icon;      
+          let tId;
+          let headerTitle ='';
+          let currTarget;
+          let year, quarter;   
+          let icon;      
           zoom = {
             value: camera.zoom // from current zoom (no matter if it's more or less than 1)
           };
@@ -535,9 +528,9 @@ clickObj(event){
               }
               let time = {t: 0};
               let positionToLookAt = targetObj.position;
-              var startQuaternion = camera.quaternion.clone(); //set initial angle
+              let startQuaternion = camera.quaternion.clone(); //set initial angle
               camera.lookAt(positionToLookAt);
-              var endQuaternion = camera.quaternion.clone(); //set destination angle
+              let endQuaternion = camera.quaternion.clone(); //set destination angle
               camera.quaternion.copy(startQuaternion);
               zoom = camera.zoom;
               new TWEEN.Tween(time)
@@ -548,12 +541,12 @@ clickObj(event){
                 .easing(TWEEN.Easing.Quadratic.InOut).onComplete(() => {    
                     try {
                       if(currTarget !== "undefined" || targetObj !== "undefined"){
-                        var pos = {x:targetObj.position.x,y:targetObj.position.y+5,z:targetObj.position.z+3};
+                        let pos = {x:targetObj.position.x,y:targetObj.position.y+5,z:targetObj.position.z+3};
                         if(tId === 'home'){
                           pos = {x:camInit.x,y:camInit.y,z:camInit.z};
                         }
 
-                        var tweenZoom = new TWEEN.Tween(camera.position).to(pos,500).onUpdate(()=>{
+                        let tweenZoom = new TWEEN.Tween(camera.position).to(pos,500).onUpdate(()=>{
                           controls.target = new THREE.Vector3(positionToLookAt.x,positionToLookAt.y,positionToLookAt.z);
                           positionToLookAt = targetObj.position;
                           camera.lookAt(positionToLookAt);
